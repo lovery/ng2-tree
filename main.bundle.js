@@ -47394,7 +47394,7 @@
 	                node._foldingType = tree_types_1.FoldingType.Leaf;
 	            }
 	        }
-	        return node._foldingType.getCssClass(this.options, node.options.icon);
+	        return node._foldingType.getCssClass(this.options, node.options);
 	    };
 	    TreeInternalComponent.prototype.getNextFoldingType = function (node) {
 	        if (node._foldingType === tree_types_1.FoldingType.Expanded) {
@@ -47459,7 +47459,7 @@
 	        if (this.tree.options.static) {
 	            return;
 	        }
-	        if (event_utils_1.isRightButtonClicked(e) && _.get(this.options, 'disableRightMenu') !== false) {
+	        if (event_utils_1.isRightButtonClicked(e) && _.get(this.options, 'rightMenu') !== false) {
 	            this.isMenuVisible = !this.isMenuVisible;
 	            this.nodeMenuService.nodeMenuEvents$.next({
 	                sender: this.element.nativeElement,
@@ -94258,7 +94258,6 @@
 	                            value: 'lost+found',
 	                            options: {
 	                                icon: {
-	                                    font: 'FontAwesome',
 	                                    nodeExpanded: 'fa fa-circle',
 	                                    nodeCollapsed: 'fa fa-circle',
 	                                    nodeLeaf: 'fa fa-circle'
@@ -94287,9 +94286,8 @@
 	                        {
 	                            value: 'firstUser',
 	                            options: {
-	                                disableDraging: true,
+	                                drag: false,
 	                                icon: {
-	                                    font: 'FontAwesome',
 	                                    nodeCollapsed: 'fa fa-folder',
 	                                    nodeExpanded: 'fa fa-folder-open',
 	                                    nodeLeaf: 'fa fa-file'
@@ -94306,22 +94304,12 @@
 	                                                {
 	                                                    value: 'bills',
 	                                                    children: [
-	                                                        { value: '2016-07-01-mobile.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-pdf-o' } } },
-	                                                        { value: '2016-07-01-electricity.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-excel-o' } } },
-	                                                        { value: '2016-07-01-water.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-sound-o' } } },
-	                                                        { value: '2016-07-01-internet.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-word-o' } } },
-	                                                        { value: '2016-08-01-mobile.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-archive-o' } } },
-	                                                        { value: '2016-08-01-electricity.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-image-o' } } },
-	                                                        { value: '2016-08-01-water.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-audio-o' } } },
-	                                                        { value: '2016-08-01-internet.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-movie-o' } } },
-	                                                        { value: '2016-09-01-mobile.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-picture-o' } } },
-	                                                        { value: '2016-09-01-electricity.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-text-o' } } },
-	                                                        { value: '2016-09-01-water.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-code-o' } } },
-	                                                        { value: '2016-09-01-internet.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-powerpoint-o' } } },
-	                                                        { value: '2016-10-01-mobile.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-pdf-o' } } },
-	                                                        { value: '2016-10-01-electricity.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-pdf-o' } } },
-	                                                        { value: '2016-10-01-water.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-pdf-o' } } },
-	                                                        { value: '2016-10-01-internet.pdf', options: { icon: { font: 'FontAwesome', nodeLeaf: 'fa fa-file-pdf-o' } } }
+	                                                        { value: '2016-07-01-mobile.pdf', options: { icon: { nodeLeaf: 'fa fa-file-pdf-o' } } },
+	                                                        { value: '2016-07-01-electricity.pdf', options: { icon: { nodeLeaf: 'fa fa-file-excel-o' } } },
+	                                                        { value: '2016-07-01-water.pdf', options: { icon: { nodeLeaf: 'fa fa-file-sound-o' } } },
+	                                                        { value: '2016-07-01-internet.pdf', options: { icon: { nodeLeaf: 'fa fa-file-word-o' } } },
+	                                                        { value: '2016-08-01-mobile.pdf', options: { icon: { nodeLeaf: 'fa fa-file-archive-o' } } },
+	                                                        { value: '2016-10-01-internet.pdf', options: { icon: { nodeLeaf: 'fa fa-file-pdf-o' } } }
 	                                                    ]
 	                                                },
 	                                                { value: 'photos', children: [] }
@@ -94340,7 +94328,6 @@
 	                            value: 'secondUser',
 	                            options: {
 	                                icon: {
-	                                    font: 'FontAwesome',
 	                                    nodeCollapsed: 'fa fa-folder-o',
 	                                    nodeExpanded: 'fa fa-folder-open-o',
 	                                    nodeLeaf: 'fa fa-file-o'
@@ -94382,12 +94369,11 @@
 	        };
 	        this.filesOptions = {
 	            icon: {
-	                font: 'FontAwesome',
 	                nodeCollapsed: 'fa fa-folder-o',
 	                nodeExpanded: 'fa fa-folder-open-o',
 	                nodeLeaf: 'fa fa-file-o'
 	            },
-	            activateRightMenu: false,
+	            rightMenu: false,
 	            expanded: false
 	        };
 	    }
@@ -94578,7 +94564,7 @@
 	    }
 	    NodeDraggableDirective.prototype.ngOnInit = function () {
 	        if (!this.tree.options.static) {
-	            if (!this.tree.options.disableDraging) {
+	            if (this.tree.options.drag) {
 	                this.renderer.setElementAttribute(this.nodeNativeElement, 'draggable', 'true');
 	                this.disposersForDragListeners.push(this.renderer.listen(this.nodeNativeElement, 'dragstart', this.handleDragStart.bind(this)));
 	                this.disposersForDragListeners.push(this.renderer.listen(this.nodeNativeElement, 'dragend', this.handleDragEnd.bind(this)));
@@ -94907,12 +94893,12 @@
 	        enumerable: true,
 	        configurable: true
 	    });
-	    FoldingType.prototype.getCssClass = function (options, icon) {
-	        if (icon !== undefined && icon[this._nodeType] !== undefined) {
-	            return icon[this._nodeType];
+	    FoldingType.prototype.getCssClass = function (treeOptions, nodeOptions) {
+	        if (_.get(nodeOptions, 'icon.' + this._nodeType) !== undefined) {
+	            return nodeOptions.icon[this._nodeType];
 	        }
-	        if (options !== undefined && options.icon.font !== 'None') {
-	            return options.icon[this._nodeType];
+	        if (_.get(treeOptions, 'icon.' + this._nodeType) !== undefined) {
+	            return treeOptions.icon[this._nodeType];
 	        }
 	        return this._cssClass;
 	    };
@@ -94922,33 +94908,32 @@
 	    return FoldingType;
 	}());
 	exports.FoldingType = FoldingType;
+	var NodeIconOptions = (function () {
+	    function NodeIconOptions() {
+	    }
+	    return NodeIconOptions;
+	}());
+	exports.NodeIconOptions = NodeIconOptions;
 	var TreeOptions = (function () {
 	    function TreeOptions() {
-	        this.activateRightMenu = true;
-	        this.activateMainMenu = false;
+	        this.rightMenu = true;
+	        this.mainMenu = false;
 	        this.expanded = true;
 	    }
 	    return TreeOptions;
 	}());
 	exports.TreeOptions = TreeOptions;
-	var NodeIconOptions = (function () {
-	    function NodeIconOptions() {
-	        this.font = 'None';
-	    }
-	    return NodeIconOptions;
-	}());
-	exports.NodeIconOptions = NodeIconOptions;
 	var TreeModelOptions = (function () {
 	    function TreeModelOptions() {
 	        this.static = false;
-	        this.disableDraging = false;
+	        this.drag = true;
 	        this.applyToSubtree = true;
 	    }
 	    TreeModelOptions.merge = function (sourceA, sourceB) {
-	        if (_.get(sourceB, 'options.applyToSubtree')) {
-	            return _.defaults({}, _.get(sourceA, 'options'), _.get(sourceB, 'options'), { static: false, disableDraging: false, applyToSubtree: true });
+	        if (_.get(sourceB, 'options.applyToSubtree') === false) {
+	            return _.defaults({}, _.get(sourceA, 'options'), { static: false, drag: true, applyToSubtree: false });
 	        }
-	        return _.defaults({}, _.get(sourceA, 'options'), { static: false, disableDraging: false, applyToSubtree: false });
+	        return _.defaults({}, _.get(sourceA, 'options'), _.get(sourceB, 'options'), { static: false, drag: true, applyToSubtree: true });
 	    };
 	    return TreeModelOptions;
 	}());

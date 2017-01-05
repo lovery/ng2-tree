@@ -1,19 +1,17 @@
 import { Input, Component, OnInit, EventEmitter, Output, ElementRef, Inject } from '@angular/core';
-import { TreeStatus, TreeModel, TreeOptions, IconOptions, FoldingType, NodeEvent, RenamableNode, NodeSelectedEvent } from './tree.types';
+import { TreeStatus, TreeModel, TreeModelOptions, TreeOptions, NodeIconOptions, FoldingType, NodeEvent, RenamableNode, NodeSelectedEvent } from './tree.types';
 import { NodeDraggableService } from './draggable/node-draggable.service';
 import { NodeMenuService } from './menu/node-menu.service';
 import { NodeDraggableEventAction, NodeDraggableEvent } from './draggable/draggable.types';
 import { NodeMenuEvent, NodeMenuAction, NodeMenuItemSelectedEvent, NodeMenuItemAction } from './menu/menu.types';
 import { NodeEditableEvent, NodeEditableEventAction } from './editable/editable.type';
 import { TreeService } from './tree.service';
-import { isLeftButtonClicked, isRightButtonClicked } from './common/utils/event.utils';
+import { isLeftButtonClicked, isRightButtonClicked } from './utils/event.utils';
 import * as _ from 'lodash';
-import { applyNewValueToRenamable, isRenamable, isValueEmpty } from './common/utils/type.utils';
-import { styles } from './tree.styles';
+import { applyNewValueToRenamable, isRenamable, isValueEmpty } from './utils/type.utils';
 
 @Component({
   selector: 'tree-internal',
-  styles: styles,
   template: `
   <ul class="tree" *ngIf="tree">
     <li>
@@ -67,9 +65,10 @@ export class TreeInternalComponent implements OnInit {
 
   public ngOnInit(): void {
     this.indexInParent = 0;
+    this.tree._indexInParent = this.indexInParent;
 
     this.isLeaf = !Array.isArray(this.tree.children);
-    this.tree._indexInParent = this.indexInParent;
+    this.tree.options = TreeModelOptions.merge(this.tree, this.parentTree);
 
     this.setUpNodeSelectedEventHandler();
     this.setUpMenuEventHandler();
@@ -180,13 +179,17 @@ export class TreeInternalComponent implements OnInit {
   private getFoldingTypeCssClass(node: TreeModel): string {
     if (!node._foldingType) {
       if (node.children) {
-        node._foldingType = FoldingType.Expanded;
+        if (_.get(this.options, 'expanded') === false) {
+          node._foldingType = FoldingType.Collapsed;
+        } else {
+          node._foldingType = FoldingType.Expanded;
+        }
       } else {
         node._foldingType = FoldingType.Leaf;
       }
     }
 
-    return node._foldingType.getCssClass(this.options, node.icon);
+    return node._foldingType.getCssClass(this.options, node.options);
   }
 
   private getNextFoldingType(node: TreeModel): FoldingType {
@@ -262,7 +265,11 @@ export class TreeInternalComponent implements OnInit {
   }
 
   private showMenu(e: MouseEvent): void {
-    if (isRightButtonClicked(e) && (this.options === undefined || this.options.activateRightMenu)) {
+    if (this.tree.options.static) {
+      return;
+    }
+
+    if (isRightButtonClicked(e) && _.get(this.options, 'rightMenu') !== false) {
       this.isMenuVisible = !this.isMenuVisible;
       this.nodeMenuService.nodeMenuEvents$.next({
         sender: this.element.nativeElement,
@@ -328,7 +335,7 @@ export class TreeComponent implements OnInit {
   public tree: TreeModel;
 
   @Input()
-  public treeOptions: TreeOptions;
+  public options: TreeOptions;
 
   @Output()
   public nodeCreated: EventEmitter<any> = new EventEmitter();

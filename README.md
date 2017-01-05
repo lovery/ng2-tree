@@ -86,19 +86,34 @@ You can configure your tree by setting an options object in the `tree` tag:
 ```html
 <tree [tree]="files" [options]="options"></tree>
 ```
+Options are:
+* icon.nodeCollapsed - The class or classes, when a node is collapsed
+* icon.nodeExpanded - The class or classes, when a node is expanded
+* icon.nodeLeaf - The class or classes, when a node is a leaf
+* rightMenu - true / false - if true show a custom menu on right click on the mouse, default: true
+* expanded - true / false - The initial state of the tree - expanded (true) or collapsed (false), default: true
+
 For example:
 ```typescript
 options = {
   icon: {
-    nodeCollapsed: 'classWhenCollapsed', // The class or classes, when a node is collapsed
-    nodeExpanded: 'classWhenExpanded', // The class or classes, when a node is expanded
-    nodeLeaf: 'classWhenLeaf', // The class or classes, when a node is a leaf
+    nodeCollapsed: 'classWhenCollapsed',
+    nodeExpanded: 'classWhenExpanded',
+    nodeLeaf: 'classWhenLeaf',
   },
-  rightMenu: false, // if true show a custom menu on right click on the mouse, default: false
-  expanded: false // The initial state of the tree - expanded (true) or collapsed (false), default: true
+  rightMenu: false,
+  expanded: false
 };
 ```
-You can also configure a particular node or a subtree by adding an options property to it:
+
+You can also configure a particular node or a subtree by adding an options property to it.
+Options are:
+* static - true / false - When true disables dragging of a node and dragging other nodes below it, default: false
+* drag - true / false - When true a node cannot be dragged but other nodes can be dragged below it (if it isn't a leaf), default: false
+* icon - Has the same options as tree icon configurations
+* applyToSubtree - true / false - When true all options apply to the this node and its subtree, when false - only to the node
+
+For example:
 ```typescript
 public files: TreeModel = {
   value: '/',
@@ -111,7 +126,6 @@ public files: TreeModel = {
           options: {
             disableDraging: true,
             icon: {
-              font: 'FontAwesome',
               nodeCollapsed: 'fa fa-folder',
               nodeExpanded: 'fa fa-folder-open',
               nodeLeaf: 'fa fa-file'
@@ -128,12 +142,12 @@ public files: TreeModel = {
                     {
                       value: 'bills',
                       children: [
-                        {value: '2016-07-01-mobile.pdf', options: {icon: {font: 'FontAwesome', nodeLeaf: 'fa fa-file-pdf-o'}}},
-                        {value: '2016-07-01-electricity.pdf', options: {icon: {font: 'FontAwesome', nodeLeaf: 'fa fa-file-excel-o'}}},
-                        {value: '2016-07-01-water.pdf', options: {icon: {font: 'FontAwesome', nodeLeaf: 'fa fa-file-sound-o'}}},
-                        {value: '2016-07-01-internet.pdf', options: {icon: {font: 'FontAwesome', nodeLeaf: 'fa fa-file-word-o'}}},
-                        {value: '2016-08-01-mobile.pdf', options: {icon: {font: 'FontAwesome', nodeLeaf: 'fa fa-file-archive-o'}}},
-                        {value: '2016-10-01-internet.pdf', options: {icon: {font: 'FontAwesome', nodeLeaf: 'fa fa-file-pdf-o'}}}
+                        {value: '2016-07-01-mobile.pdf', options: {icon: {nodeLeaf: 'fa fa-file-pdf-o'}}},
+                        {value: '2016-07-01-electricity.pdf', options: {icon: {nodeLeaf: 'fa fa-file-excel-o'}}},
+                        {value: '2016-07-01-water.pdf', options: {icon: {nodeLeaf: 'fa fa-file-sound-o'}}},
+                        {value: '2016-07-01-internet.pdf', options: {icon: {nodeLeaf: 'fa fa-file-word-o'}}},
+                        {value: '2016-08-01-mobile.pdf', options: {icon: {nodeLeaf: 'fa fa-file-archive-o'}}},
+                        {value: '2016-10-01-internet.pdf', options: {icon: {nodeLeaf: 'fa fa-file-pdf-o'}}}
                       ]
                     },
                     {value: 'photos', children: []}
@@ -153,12 +167,6 @@ public files: TreeModel = {
   ]
 };
 ```
-Options are:
-* static - true / false - When true disables dragging of a node and dragging other nodes below it, default: false
-* drag - true / false - When true a node cannot be dragged but other nodes can be dragged below it (if it isn't a leaf), default: false
-* icon - Has the same options as tree icon configurations
-* applyToSubtree - true / false - When true all options apply to the this node and its subtree, when false - only to the node
-
 
 Voila! That's pretty much it - enjoy :blush:
 

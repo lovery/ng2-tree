@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NodeEvent, TreeModel, TreeOptions, RenamableNode } from '../index';
+import { NodeEvent, TreeModel, RenamableNode } from '../index';
 
 require('../src/styles.css');
 
@@ -73,12 +73,7 @@ export class AppComponent {
           static: true
         },
         children: [
-          {
-            value: 'Antiqua',
-            icon: {
-              nodeLeaf: 'fa fa-circle-o'
-            }
-          },
+          {value: 'Antiqua'},
           {value: 'DejaVu Serif'},
           {value: 'Garamond'},
           {value: 'Georgia'},
@@ -117,15 +112,6 @@ export class AppComponent {
         ]
       }
     ]
-  };
-  public fontsOptions: TreeOptions = {
-    icon: {
-      font: 'FontAwesome',
-      nodeCollapsed: 'fa fa-folder-o',
-      nodeExpanded: 'fa fa-folder-open-o',
-      nodeLeaf: 'fa fa-file-o'
-    },
-    activateRightMenu: false
   };
 
   public pls: TreeModel = {

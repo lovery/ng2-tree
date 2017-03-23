@@ -8,21 +8,21 @@ typings/
 yarn.lock
 .DS_Store
 
-**/*.js.map
+#**/*.js.map
 
 demo/**/*.js
 demo/**/*.d.ts
 demo/**/*.css
 
-src/**/*.js
-src/**/*.d.ts
+#src/**/*.js
+#src/**/*.d.ts
 
-*.js
-*.d.ts
+#*.js
+#*.d.ts
 
 !.config/*.js
 
-bundles
+#bundles
 
 demo-build
 
@@ -33,7 +33,7 @@ factories
 yarn.lock
 yarn-error.log
 
-*.metadata.json
+#*.metadata.json
 
 #Untrack editors files
 .*.swp
